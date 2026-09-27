@@ -49,15 +49,16 @@ python part5.py
 | `part2.py` | \(GF(p)\) 加/减/乘/幂、手写扩展欧几里得逆元、分享与 Lagrange 重构 |
 | `part3.py` | 正确性、\(t-1\) 安全经验验证（枚举/熵/卡方）、合数对比、边界测试 |
 | `part4.py` | \(GF(2^{128})\) 域运算、Fermat 与多项式 extgcd 两版逆元、Shamir 实现与测试 |
-| `part5.py` | GF(p) 与 GF(2^128) 同规模性能基准、log-log 绘图与斜率拟合 |
+| `part5.py` | \(GF(p)\) 与 \(GF(2^{128})\) 同规模性能基准、log-log 绘图与斜率拟合 |
 | `data/part5_performance.csv` / `.png` | Part 5 性能数据与 log-log 图 |
 | `data/part3_*.csv` / `.png` | Part 3 安全性实验的分布数据与直方图 |
 | `Shamir Secret Sharing 笔记.md` | Part 1 阅读笔记 |
 | `Part5_报告.md` | Part 5 实验报告（含全部设计选择与实验分析） |
+| `.gitignore` | Git 忽略规则（`__pycache__/`、`*.pyc`、`*.log` 等） |
 
 ## 关键设计
 
-- 素数 \(p=2^{128}+51\)：\(2^{128}\) 之上最小的素数（确定性 Miller-Rabin 验证），任意 128 位秘密可直接放入；
+- 素数 \(p=2^{128}+51\)：\(2^{128}\) 之上最小的素数，任意 128 位秘密可直接放入；
 - \(GF(2^{128})\) 模 \(x^{128}+x^7+x^2+x+1\)：GCM 标准多项式，不可约且约简常数项小；
 - 全部随机数来自 `secrets`（操作系统 CSPRNG）：\(GF(p)\) 用 `randbelow(p)`，\(GF(2^{128})\) 用 `randbits(128)`；
 - 求值点取 \(x_i=1,\ldots,n\)，刻意避开 \(x=0\)，因为 \(f(0)\) 就是秘密本身。
